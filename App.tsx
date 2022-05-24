@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from 'styled-components'
 import {
@@ -10,8 +10,8 @@ import {
 
 import theme from './src/global/styles/thema'
 
-import { Dashboard } from './src/screens/Dashboard'
-import { Register } from './src/screens/Register'
+import { NavigationContainer } from '@react-navigation/native'
+import { AppRoutes } from './src/routes/app.routes'
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
@@ -30,7 +30,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Register />
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
