@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ActivityIndicator } from 'react-native'
 import { VictoryPie } from 'victory-native'
@@ -42,14 +43,13 @@ interface CategoryData{
 }
 
 export function Resume(){
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [selectedDate, setSelectedDate] = useState(new Date())
     const [totalByCategories, setTotalByCategory] = useState<CategoryData[]>([])
 
     const theme = useTheme()
 
     function handlDateChange(action: 'next' | 'prev'){
-        setIsLoading(true)
         if (action == 'next') {
             setSelectedDate(addMonths(selectedDate, 1))
         }else{
@@ -58,6 +58,7 @@ export function Resume(){
     }
 
     async function loadData(){
+        setIsLoading(true)
         const dataKey = '@gofinances:transactions'
         const response = await AsyncStorage.getItem(dataKey)
         const responseFormatted = response ? JSON.parse(response) : []
@@ -107,9 +108,9 @@ export function Resume(){
         setIsLoading(false)
     }
 
-    useEffect(() => {
-        loadData();
-    }, [selectedDate])
+    useFocusEffect(useCallback(() => {
+        loadData()
+    }, [selectedDate]))
 
     return(
         <Container>
