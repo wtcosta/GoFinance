@@ -57,7 +57,7 @@ export function Dashboard(){
     const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData)
 
     const theme = useTheme()
-    const { signOut } = useAuth()
+    const { signOut, user } = useAuth()
 
     let entriesTotal = 0
     let expensiveTotal = 0
@@ -150,10 +150,10 @@ export function Dashboard(){
                     <Header>
                         <UserWrapper>
                             <UserInfo>
-                                <Photo source={{uri: 'https://avatars.githubusercontent.com/u/8378135?s=400&u=76ea444b45fd76e8dd0a1a9c659eea60073e592d&v=4'}}/>
+                                <Photo source={{uri: user.photo}}/>
                                 <User>
                                     <UserGreeting>Olá, </UserGreeting>
-                                    <UserName>Wesley</UserName>
+                                    <UserName>{user.name}</UserName>
                                 </User>
                             </UserInfo>
 
