@@ -6,6 +6,7 @@ import { useTheme } from 'styled-components'
 
 import { HighlighCard } from '../../components/HighlighCard';
 import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
+import { useAuth } from '../../hooks/auth';
 
 import { 
     Container,
@@ -56,6 +57,7 @@ export function Dashboard(){
     const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData)
 
     const theme = useTheme()
+    const { signOut } = useAuth()
 
     let entriesTotal = 0
     let expensiveTotal = 0
@@ -155,7 +157,7 @@ export function Dashboard(){
                                 </User>
                             </UserInfo>
 
-                            <LogoutButton onPress={() => {}}>
+                            <LogoutButton onPress={signOut}>
                                 <Icon name="power" />
                             </LogoutButton>
                         </UserWrapper>
